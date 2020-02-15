@@ -30,3 +30,6 @@ Departman işlemleri sekmesinde bulunan 3 adet işlem şu şekilde: Departman Ek
 # Admin Sistemi: Admin Şifre Güncelleme İşlemi
 Resimde de görüldüğü gibi "nuevo" adlı dropdown'daki şifreyi güncelle kısmına tıklandığında çıkan modal ile şifremizi güncelleyebiliyoruz.
 ![updatePassword](https://user-images.githubusercontent.com/56116374/74593220-09be1980-503a-11ea-81a8-4fd71d0ebda1.png)
+
+# Kullandığım Veritabanı Tabloları
+![database](https://user-images.githubusercontent.com/56116374/74593315-fc555f00-503a-11ea-8d57-ae64d78504e4.png)
