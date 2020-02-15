@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TelephoneBook.Data;
 using TelephoneBook.DataAccessLayers;
 using TelephoneBook.Databases;
@@ -30,7 +26,7 @@ namespace TelephoneBook.Controllers
 
             TempData["message"] = "Çalışan başarıyla eklendi !";
 
-            return RedirectToAction("Index","Admin");
+            return RedirectToAction("Index", "Admin");
         }
 
         // Çalışan silme işlemi: eğer çalışan bir başka çalışanın yönetici konumundaysa silinememesi.

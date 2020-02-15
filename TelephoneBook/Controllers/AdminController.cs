@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TelephoneBook.Data;
 using TelephoneBook.DataAccessLayers;
 using TelephoneBook.Databases;
@@ -32,7 +27,7 @@ namespace TelephoneBook.Controllers
             {
                 var adminInfos = adminDal.login(admin);
 
-                if (adminInfos==null)
+                if (adminInfos == null)
                 {
                     TempData["message"] = "Giriş başarısız !";
 
@@ -59,7 +54,7 @@ namespace TelephoneBook.Controllers
         {
             HttpContext.Session.Clear();
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         // Admin şifre güncelleme işlemi.

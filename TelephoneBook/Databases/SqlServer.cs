@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TelephoneBook.Data;
 using TelephoneBook.DataAccessLayers;
 using TelephoneBook.Helper;
@@ -11,7 +9,7 @@ namespace TelephoneBook.Databases
 {
     // sql server veritabanında yapılan tüm işlemler.
     // eğer yeni bir veritabanı daha eklenmek isterse bu dosya dizinine ilgili veritabanı örneğin(Oracle Database) eklenmesi ve DataAccessLayersdaki interfacelerden kalıtım alması yeterli.
-    public class SqlServer:IAdminDal,IEmployeeDal,IDepartmentDal
+    public class SqlServer : IAdminDal, IEmployeeDal, IDepartmentDal
     {
         private DataContext context;
 
@@ -50,7 +48,7 @@ namespace TelephoneBook.Databases
         public Boolean deleteDepartment(int id)
         {
             var department = context.Departments.FirstOrDefault(x => x.id == id);
-            var employee = context.Employees.FirstOrDefault(x => x.department.name==department.name);
+            var employee = context.Employees.FirstOrDefault(x => x.department.name == department.name);
 
             if (employee == null)
             {
@@ -70,7 +68,7 @@ namespace TelephoneBook.Databases
         public Boolean deleteEmployee(int id)
         {
             // silinecek çalışan ve diğer tablolardaki bilgileri.
-            var employee=context.Employees.FirstOrDefault(x => x.id == id);
+            var employee = context.Employees.FirstOrDefault(x => x.id == id);
             var department = context.Departments.FirstOrDefault(x => x.id == employee.departmentID);
             var contact = context.Contacts.FirstOrDefault(x => x.id == employee.contactID);
             var manager = context.Managers.FirstOrDefault(x => x.id == employee.managerID);
@@ -103,7 +101,7 @@ namespace TelephoneBook.Databases
 
             // Aynı isme sahip başka departman varsa toplu silme işlemi.
             var departments = context.Departments.Where(x => x.name == oldDep.name).ToList();
-            for(int i = 0; i < departments.Count; i++)
+            for (int i = 0; i < departments.Count; i++)
             {
                 departments[i].name = department.name;
             }

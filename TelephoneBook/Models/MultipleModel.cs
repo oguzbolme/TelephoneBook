@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TelephoneBook.Models
 {
+    // Tüm modelleri tek bir çatı altında toplayan model.
+    // Bunun yapılma sebebi view içerisinde birbirinden farklı modelleri aynı anda kullanabilmek.
     public class MultipleModel
     {
         public Employee employee { get; set; }

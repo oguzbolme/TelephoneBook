@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TelephoneBook.Models;
 
 namespace TelephoneBook.Helper
@@ -48,7 +45,7 @@ namespace TelephoneBook.Helper
                     }
                 }
             }
-            for(int i = 0; i < realDepartments.Count; i++)
+            for (int i = 0; i < realDepartments.Count; i++)
             {
                 if (realDepartments[i].name == null)
                 {
@@ -74,7 +71,7 @@ namespace TelephoneBook.Helper
                     int x = 5;
                     for (int j = 0; j < realEmployees.Count; j++)
                     {
-                        if (realEmployees[j].name+" "+realEmployees[j].surname == employees[i].name+" "+employees[i].surname)
+                        if (realEmployees[j].name + " " + realEmployees[j].surname == employees[i].name + " " + employees[i].surname)
                         {
                             x = 0;
                             break;
