@@ -1,0 +1,233 @@
+﻿@model TelephoneBook.Models.MultipleModel
+@{
+    ViewData["Title"] = "Telefon Rehberi - Admin";
+    Layout = "~/Views/Shared/Main_Layout.cshtml";
+}
+
+<div class="w3-row">
+    <a href="javascript:void(0)" onclick="openTab(event, 'employee');">
+        <div class="w3-half w3-second tablink w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-user-friends"></i> Çalışan İşlemleri</div>
+    </a>
+    <a href="javascript:void(0)" onclick="openTab(event, 'department');">
+        <div class="w3-half w3-second tablink w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-puzzle-piece"></i> Departman İşlemleri</div>
+    </a>
+</div>
+
+<h2 id="welcomeText" style="text-align:center; margin-top:200px;"><strong>Admin Sistemine Hoş Geldiniz !</strong></h2>
+
+<div id="employee" class="w3-container tab" style="display:none">
+    <div class="w3-row">
+        <a href="javascript:void(0)" onclick="openEmployee(event, 'addEmployee');">
+            <div class="w3-third tablinkemp w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-user-plus"></i> Çalışan Ekle</div>
+        </a>
+        <a href="javascript:void(0)" onclick="openEmployee(event, 'deleteEmployee');">
+            <div class="w3-third tablinkemp w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-user-minus"></i> Çalışan Sil</div>
+        </a>
+        <a href="javascript:void(0)" onclick="openEmployee(event, 'editEmployee');">
+            <div class="w3-third tablinkemp w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-user-edit"></i> Çalışan Düzenle</div>
+        </a>
+    </div>
+
+    <div id="addEmployee" class="w3-container emp" style="display:none">
+        <form asp-controller="Employee" asp-action="AddEmployee" style="margin:10px">
+            <p>
+                <label>Adı</label>
+                <input required class="w3-input w3-border w3-round" name="name" type="text">
+            </p>
+            <p>
+                <label>Soyadı</label>
+                <input required class="w3-input w3-border w3-round" name="surname" type="text">
+            </p>
+            <p>
+                <label>Telefon Numarası</label>
+                <input required class="w3-input w3-border w3-round" name="contact.telNumber" type="text">
+            </p>
+            <p>
+                <select required class="w3-select w3-border" name="department.name">
+                    <option value="" disabled selected>Departman Seçiniz</option>
+                    <option value="">Yok</option>
+                    @foreach (var department in Model.Departments)
+                    {
+                        <option value="@department.name">@department.name</option>
+                    }
+                </select>
+            </p>
+            <p>
+                <select required class="w3-select w3-border" name="manager.EmployeeID">
+                    <option value="" disabled selected>Yönetici Seçiniz</option>
+                    <option value="">Yok</option>
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <option value="@employee.id">@employee.name @employee.surname</option>
+                    }
+                </select>
+            </p>
+            <p><button type="submit" style="color:white" class="w3-button w3-block bg-dark">Çalışanı Ekle</button></p>
+        </form>
+    </div>
+
+    <div id="deleteEmployee" class="w3-container emp" style="display:none">
+        <form asp-controller="Employee" asp-action="DeleteEmployee" style="margin:10px">
+            <p>
+                <select required class="w3-select w3-border" name="id">
+                    <option value="" disabled selected>Silinecek Çalışanı Seçiniz</option>
+                    @foreach (var employee in Model.Employees)
+                    {
+                        var contact = Model.Contacts.FirstOrDefault(x => x.id == employee.contactID);
+                        <option value="@employee.id">@employee.name @employee.surname @contact.telNumber </option>
+                    }
+                </select>
+            </p>
+            <p><button type="submit" style="color:white" class="w3-button w3-block bg-dark">Çalışanı Sil</button></p>
+        </form>
+    </div>
+
+    <div id="editEmployee" class="w3-container emp" style="display:none">
+        <form asp-controller="Employee" asp-action="EditEmployee" style="margin:10px">
+            <p>
+                <select required class="w3-select w3-border" name="id">
+                    <option value="" disabled selected>Düzenlenecek Çalışanı Seçiniz</option>
+                    @foreach (var employee in Model.Employees)
+                    {
+                        var contact = Model.Contacts.FirstOrDefault(x => x.id == employee.contactID);
+                        <option value="@employee.id">@employee.name @employee.surname @contact.telNumber </option>
+                    }
+                </select>
+            </p>
+            <p>
+                <label>Adı</label>
+                <input required class="w3-input w3-border w3-round" name="name" type="text">
+            </p>
+            <p>
+                <label>Soyadı</label>
+                <input required class="w3-input w3-border w3-round" name="surname" type="text">
+            </p>
+            <p>
+                <label>Telefon Numarası</label>
+                <input required class="w3-input w3-border w3-round" name="contact.telNumber" type="text">
+            </p>
+            <p>
+                <select required class="w3-select w3-border" name="department.name">
+                    <option value="" disabled selected>Departman Seçiniz</option>
+                    <option value="">Yok</option>
+                    @foreach (var department in Model.Departments)
+                    {
+                        <option value="@department.name">@department.name</option>
+                    }
+                </select>
+            </p>
+            <p>
+                <select required class="w3-select w3-border" name="manager.EmployeeID">
+                    <option value="" disabled selected>Yönetici Seçiniz</option>
+                    <option value="">Yok</option>
+                    @foreach (var employee in Model.Employees)
+                    {
+                        <option value="@employee.id">@employee.name @employee.surname</option>
+                    }
+                </select>
+            </p>
+            <p><button type="submit" style="color:white" class="w3-button w3-block bg-dark">Çalışanı Güncelle</button></p>
+        </form>
+    </div>
+</div>
+
+<div id="department" class="w3-container tab" style="display:none">
+    <div class="w3-row">
+        <a href="javascript:void(0)" onclick="openDepartment(event, 'addDepartment');">
+            <div class="w3-third tablinkdep w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-plus"></i> Departman Ekle</div>
+        </a>
+        <a href="javascript:void(0)" onclick="openDepartment(event, 'deleteDepartment');">
+            <div class="w3-third tablinkdep w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-minus"></i> Departman Sil</div>
+        </a>
+        <a href="javascript:void(0)" onclick="openDepartment(event, 'editDepartment');">
+            <div class="w3-third tablinkdep w3-bottombar w3-hover-light-grey w3-padding"><i class="fas fa-edit"></i> Departman Düzenle</div>
+        </a>
+    </div>
+
+    <div id="addDepartment" class="w3-container dep" style="display:none">
+        <form asp-controller="Department" asp-action="AddDepartment" style="margin:10px">
+            <p>
+                <label>Eklenecek Departmanı Giriniz</label>
+                <input required class="w3-input w3-border w3-round" name="name" type="text">
+            </p>
+            <p><button type="submit" style="color:white" class="w3-button w3-block bg-dark">Departmanı Ekle</button></p>
+        </form>
+    </div>
+
+    <div id="deleteDepartment" class="w3-container dep" style="display:none">
+        <form asp-controller="Department" asp-action="DeleteDepartment" style="margin:10px">
+            <p>
+                <select required class="w3-select w3-border" name="id">
+                    <option value="" disabled selected>Silinecek Departmanı Seçiniz</option>
+                    @foreach (var department in Model.Departments)
+                    {
+                        <option value="@department.id">@department.name</option>
+                    }
+                </select>
+            </p>
+            <p><button type="submit" style="color:white" class="w3-button w3-block bg-dark">Departmanı Sil</button></p>
+        </form>
+    </div>
+
+    <div id="editDepartment" class="w3-container dep" style="display:none">
+        <form asp-controller="Department" asp-action="EditDepartment" style="margin:10px">
+            <p>
+                <select required class="w3-select w3-border" name="id">
+                    <option value="" disabled selected>Düzenlenecek Departmanı Seçiniz</option>
+                    @foreach (var department in Model.Departments)
+                    {
+                        <option value="@department.id">@department.name</option>
+                    }
+                </select>
+            </p>
+            <p>
+                <label>Departman Adı</label>
+                <input required class="w3-input w3-border w3-round" name="name" type="text">
+            </p>
+            <p><button type="submit" style="color:white" class="w3-button w3-block bg-dark">Departmanı Güncelle</button></p>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tab) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("tab");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-border-indigo", "");
+        }
+        document.getElementById(tab).style.display = "block";
+        evt.currentTarget.firstElementChild.className += " w3-border-indigo";
+        document.getElementById("welcomeText").style.display = "none";
+    }
+    function openEmployee(evt, emp) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("emp");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinkemp");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-border-indigo", "");
+        }
+        document.getElementById(emp).style.display = "block";
+        evt.currentTarget.firstElementChild.className += " w3-border-indigo";
+    }
+    function openDepartment(evt, dep) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("dep");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinkdep");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-border-indigo", "");
+        }
+        document.getElementById(dep).style.display = "block";
+        evt.currentTarget.firstElementChild.className += " w3-border-indigo";
+    }
+</script>

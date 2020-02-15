@@ -1,0 +1,104 @@
+﻿@model TelephoneBook.Models.MultipleModel
+@{
+    ViewData["Title"] = "Telefon Rehberi - Anasayfa";
+    Layout = "~/Views/Shared/Main_Layout.cshtml";
+}
+
+<style>
+    tr {
+        color: white;
+    }
+
+    .empRow{
+
+    }
+</style>
+
+<h2 style="text-align:center;margin-top:40px;"><strong>Telefon Rehberine Hoş Geldiniz</strong></h2>
+
+<div style="margin-top:20px;">
+    <label style="margin-left:40px;"><strong>Hızlı Arama: </strong><input id="search" class="w3-border" type="text"></label>
+</div>
+
+<div style="margin-top:20px;" class="w3-responsive">
+    <table style="" class="w3-table-all w3-centered">
+        <tr class="bg-dark">
+            <th>ADI</th>
+            <th>SOYADI</th>
+            <th>TELEFON NUMARASI</th>
+            <th></th>
+            <th style="display:none">dsaad</th>
+            <th style="display:none">dsads</th>
+        </tr>
+        @foreach (var mm in Model.Employees)
+        {
+            var manager = Model.Employees.FirstOrDefault(x => x.id == mm.manager.employeeID);
+
+            if (manager == null)
+            {
+                manager = new TelephoneBook.Models.Employee();
+                manager.name = "Yok";
+                manager.surname = "";
+            }
+
+            <tr id="deneme" style="cursor:pointer" class="bg-dark empRow">
+                <td>@mm.name</td>
+                <td>@mm.surname</td>
+                <td>@mm.contact.telNumber</td>
+                <td>Detay Göster</td>
+                <td style="display:none">@mm.department.name</td>
+                <td style="display:none">@manager.name @manager.surname</td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+<div id="employeeDetailsModal" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4" style="border-radius:10px;">
+        <header class="w3-container bg-dark" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+            <span style="color:white; border-radius:10px;" onclick="document.getElementById('employeeDetailsModal').style.display='none'"
+                  class="w3-button w3-large w3-display-topright">&times;</span>
+            <h3 style="text-align:center;color:white;">Çalışan Detayları</h3>
+        </header>
+        <div class="w3-container" style="margin:10px;">
+            <h3>Adı: <strong id="empName"></strong></h3>
+            <h3>Soyadı: <strong id="empSurname"></strong></h3>
+            <h3>Telefon Numarası: <strong id="empTel"></strong></h3>
+            <h3>Departman Adı: <strong id="empDep"></strong></h3>
+            <h3>Yöneticisi: <strong id="empMan"></strong></h3>
+        </div>
+        <div style="border-bottom-left-radius:10px;border-bottom-right-radius:10px;" class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button onclick="document.getElementById('employeeDetailsModal').style.display='none'" type="button" class="w3-button bg-dark" style="width:100%;color:white; border-radius:10px;">Tamam</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("tr.empRow").click(function () {
+        var tableData = $(this).children("td").map(function () {
+            return $(this).text();
+        }).get();
+        $("#empName").text($.trim(tableData[0]));
+        $("#empSurname").text($.trim(tableData[1]));
+        $("#empTel").text($.trim(tableData[2]));
+        $("#empDep").text($.trim(tableData[4]));
+        $("#empMan").text($.trim(tableData[5]));
+        $("#employeeDetailsModal").show();
+    });
+
+    var $cells = $("td");
+
+    $("#search").keyup(function () {
+        var val = $.trim(this.value).toUpperCase();
+        if (val === "") {
+            $cells.parent().show();
+        }
+        else {
+            $cells.parent().hide();
+            $cells.filter(function () {
+                return -1 != $(this).text().toUpperCase().indexOf(val);
+            }).parent().show();
+        }
+    });
+</script>

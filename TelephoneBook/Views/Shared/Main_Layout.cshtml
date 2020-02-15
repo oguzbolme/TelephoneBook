@@ -1,0 +1,151 @@
+﻿@model TelephoneBook.Models.MultipleModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" lang="tr">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/Home"><i class="fas fa-address-book"></i> Telefon Rehberi</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#Hakkımda"><i class="fas fa-question"></i> Hakkımda</a>
+                    <a id="loginButton" class="nav-item nav-link active" href="#Giriş"><i class="fas fa-sign-in-alt"></i> Admin Girişi</a>
+                    <li id="adminDropdown" style="display:none" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-sign-out-alt"></i> @Model.admin.nick
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a asp-controller="Admin" asp-action="Index" class="dropdown-item">Admin Sistemi</a>
+                            <a id="updatePasswordButton" class="dropdown-item" href="#UpdatePassword">Şifreyi Güncelle</a>
+                            <a asp-controller="Admin" asp-action="Logout" class="dropdown-item">Çıkış Yap</a>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer style="margin-top:50px;">
+        <div class="bg-dark" style="position:fixed;left:0;bottom:0;width:100%;text-align:center;">
+            <p style="color:white;">Copyright © 1999-2020 Oğuzhan Bölme</p>
+        </div>
+    </footer>
+
+    <div id="loginModal" class="w3-modal w3-animate-opacity">
+        <div class="w3-modal-content w3-card-4" style="border-radius:10px;">
+            <header class="w3-container bg-dark" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+                <span style="color:white; border-radius:10px;" onclick="document.getElementById('loginModal').style.display='none'"
+                      class="w3-button w3-large w3-display-topright">&times;</span>
+                <h2 style="text-align:center;color:white;">Admin Sistemi</h2>
+            </header>
+            <div class="w3-container" style="margin:10px;">
+                <form method="post" asp-controller="Admin" asp-action="Login">
+                    <p>
+                        <label>Kullanıcı Adı</label>
+                        <input required class="w3-input w3-border w3-round" name="nick" type="text">
+                    </p>
+                    <p>
+                        <label>Parola</label>
+                        <input required class="w3-input w3-border w3-round" name="password" type="password">
+                    </p>
+                    <p><button type="submit" style="border-radius:10px;color:white;" class="w3-button w3-block bg-dark">Giriş</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="updatePasswordModal" class="w3-modal w3-animate-opacity">
+        <div class="w3-modal-content w3-card-4" style="border-radius:10px;">
+            <header class="w3-container bg-dark" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+                <span style="color:white; border-radius:10px;" onclick="document.getElementById('updatePasswordModal').style.display='none'"
+                      class="w3-button w3-large w3-display-topright">&times;</span>
+                <h2 style="text-align:center;color:white;">Şifreyi Güncelle</h2>
+            </header>
+            <div class="w3-container" style="margin:10px;">
+                <form method="post" asp-controller="Admin" asp-action="UpdatePassword">
+                    <p>
+                        <label>Yeni Şifre</label>
+                        <input required class="w3-input w3-border w3-round" name="password" type="text">
+                    </p>
+                    <p><button type="submit" style="border-radius:10px;color:white;" class="w3-button w3-block bg-dark">Güncelle</button></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorModal" class="w3-modal w3-animate-opacity">
+        <div class="w3-modal-content w3-card-4" style="border-radius:10px;">
+            <header class="w3-container bg-dark" style="border-top-left-radius:10px;border-top-right-radius:10px;">
+                <span style="color:white; border-radius:10px;" onclick="document.getElementById('errorModal').style.display='none'"
+                      class="w3-button w3-large w3-display-topright">&times;</span>
+                <h2 style="text-align:center;color:white;">Bilgi Mesajı</h2>
+            </header>
+            <div class="w3-container" style="margin:10px;">
+                <h2 style="text-align:center;"><strong>@TempData["message"]</strong></h2>
+            </div>
+            <div style="border-bottom-left-radius:10px;border-bottom-right-radius:10px;" class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                <button onclick="document.getElementById('errorModal').style.display='none'" type="button" class="w3-button bg-dark" style="width:100%;color:white; border-radius:10px;">Tamam</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#loginButton").click(function () {
+            $("#loginModal").show();
+        });
+
+        $("#updatePasswordButton").click(function () {
+            $("#updatePasswordModal").show();
+        });
+
+        $(document).ready(function () {
+            @if (TempData["message"]!=null)
+        {
+            <text>
+            $(document).ready(function () {
+                $("#errorModal").css("display", "block");
+            });
+            </text>
+        }
+        });
+
+        $.ajax({
+           type: "GET",
+           url: "/Home/Ajax",
+            success: function (result) {
+                $(document).ready(function () {
+                    if ("@Model.admin.nick" == "empty") {
+                        $("#loginButton").css("display", "block");
+                        $("#adminDropdown").css("display", "none");
+                    }
+                    else {
+                        $("#loginButton").css("display", "none");
+                        $("#adminDropdown").css("display", "block");
+                    }
+                });
+           },
+           error : function(req, status, error) {
+                // bizde hata olmaz
+           }
+        });
+    </script>
+</body>
+</html>
