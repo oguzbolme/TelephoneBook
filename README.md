@@ -1,4 +1,8 @@
 # TelephoneBook ( Telefon Rehberi)
+
+# Kurulum
+Yakında yazacağım.
+
 # Anasayfa
 Site ilk açıldığında publicUI dediğimiz arayüzü görüyoruz. Buradan şirketteki çalışanların ad,soyad,telefon numarası bilgilerine ulaşabiliyoruz. Eğer detay göstere tıklanırsa tıklanılan çalışanın departman adına ve yöneticisinin bilgisine de ulaşabiliyoruz.
 ![mainPage](https://user-images.githubusercontent.com/56116374/74592787-d5485e80-5035-11ea-930e-15ad97269d06.png)
