@@ -1,7 +1,15 @@
 # TelephoneBook ( Telefon Rehberi)
 
 # Kurulum
-Yakında yazacağım.
+Öncelikle projeyi indiriyoruz. İndirilen dosyalar içerisindeki "DatabaseFiles" adlı rar dosyasının içindekilerini çıkartıyoruz. Daha sonra Sql Server Management Studio'yu açıp local server'a bağlanıyoruz ve gelen ekranda "Databases" klasörüne sağ tıklayıp "Attach" seçeneğine tıklıyoruz. Buradan da Add'e tıklayıp eklemek istediğimiz "DatabaseFiles" içerisindeki "mdf" uzantılı TelephoneBook dosyasını seçiyoruz ve Ok'a tıklıyoruz sonra birdaha Ok'a tıklıyoruz. Bu şekilde veritabanımızı server'a eklemiş bulunmaktayız. Dikkat edilmesi gereken noktalardan biri de "appsettings.json" dosyasındaki data source'un adı ile Sql Server'da connect yaptığımız server adı ile aynı olması gerektiği.
+
+![showAttach](https://user-images.githubusercontent.com/56116374/74678059-f2fafc80-51ca-11ea-8011-940fc3fbb4c6.png)
+![addDbFile](https://user-images.githubusercontent.com/56116374/74678066-f68e8380-51ca-11ea-862b-d77135bef611.png)
+![dataSource](https://user-images.githubusercontent.com/56116374/74678422-fe9af300-51cb-11ea-8420-3b6b81557568.png)
+![serverName](https://user-images.githubusercontent.com/56116374/74678608-84b73980-51cc-11ea-88a0-010ef171fcf4.png)
+
+# Kullandığım Veritabanı Tabloları
+![database](https://user-images.githubusercontent.com/56116374/74593315-fc555f00-503a-11ea-8d57-ae64d78504e4.png)
 
 # Anasayfa
 Site ilk açıldığında publicUI dediğimiz arayüzü görüyoruz. Buradan şirketteki çalışanların ad,soyad,telefon numarası bilgilerine ulaşabiliyoruz. Eğer detay göstere tıklanırsa tıklanılan çalışanın departman adına ve yöneticisinin bilgisine de ulaşabiliyoruz.
@@ -34,6 +42,3 @@ Departman işlemleri sekmesinde bulunan 3 adet işlem şu şekilde: Departman Ek
 # Admin Sistemi: Admin Şifre Güncelleme İşlemi
 Resimde de görüldüğü gibi "nuevo" adlı dropdown'daki şifreyi güncelle kısmına tıklandığında çıkan modal ile şifremizi güncelleyebiliyoruz.
 ![updatePassword](https://user-images.githubusercontent.com/56116374/74593220-09be1980-503a-11ea-81a8-4fd71d0ebda1.png)
-
-# Kullandığım Veritabanı Tabloları
-![database](https://user-images.githubusercontent.com/56116374/74593315-fc555f00-503a-11ea-8d57-ae64d78504e4.png)
