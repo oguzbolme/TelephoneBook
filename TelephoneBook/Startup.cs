@@ -8,7 +8,6 @@ using TelephoneBook.Data;
 
 namespace TelephoneBook
 {
-    // Gerekli kurulumlar.
     public class Startup
     {
         public Startup(IConfiguration configuration)
